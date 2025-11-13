@@ -1,0 +1,25 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "name": "cuda",
+      "displayName": "hudson cuda",
+      "binaryDir": "/scratch/s3j/build/g4hepem-${presetName}",
+      "generator": "Ninja",
+      "environment": {
+        "CMAKE_PREFIX_PATH": "/auto/projects/celeritas/spack/var/spack/environments/adept/.spack-env/view",
+        "PATH": "/auto/projects/celeritas/spack/var/spack/environments/adept/.spack-env/view/bin/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      },
+      "cacheVariables": {
+        "BUILD_TESTING": {"type": "BOOL", "value": "ON"},
+        "BUILD_SHARED_LIBS":  {"type": "BOOL", "value": "ON"},
+        "CMAKE_INSTALL_RPATH_USE_LINK_PATH": {"type": "BOOL", "value": "ON"},
+        "CMAKE_INSTALL_RPATH": "/scratch/s3j/install/g4hepem-${presetName}/lib",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
+        "CMAKE_CUDA_ARCHITECTURES": {"type": "STRING", "value": "90"},
+        "CMAKE_INSTALL_PREFIX": "/scratch/s3j/install/g4hepem-${presetName}"
+      }
+    }
+  ]
+}
