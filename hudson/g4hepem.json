@@ -12,6 +12,8 @@
         "PATH": "/auto/projects/celeritas/spack/var/spack/environments/adept/.spack-env/view/bin/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       },
       "cacheVariables": {
+        "G4HepEm_CUDA_BUILD":  {"type": "BOOL", "value": "ON"},
+        "G4HepEm_EARLY_TRACKING_EXIT":  {"type": "BOOL", "value": "ON"},
         "BUILD_TESTING": {"type": "BOOL", "value": "ON"},
         "BUILD_SHARED_LIBS":  {"type": "BOOL", "value": "ON"},
         "CMAKE_INSTALL_RPATH_USE_LINK_PATH": {"type": "BOOL", "value": "ON"},
