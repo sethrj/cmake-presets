@@ -1,0 +1,39 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "name": ".base",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "BUILD_TESTING": {"type": "BOOL", "value": "ON"},
+        "VECGEOM_GDML": {"type": "BOOL", "value": "ON"},
+        "VECGEOM_USE_SURF": {"type": "BOOL", "value": "ON"},
+        "CMAKE_CXX_STANDARD": {"type": "STRING", "value": "20"},
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"}
+      }
+    },
+    {
+      "name": "executor",
+      "displayName": "Executor base",
+      "inherits": ".base",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install"
+      }
+    },
+    {
+      "name": "hudson-cuda",
+      "displayName": "Hudson CUDA",
+      "binaryDir": "/scratch/s3j/build/vecgeom-${presetName}",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "VECGEOM_ENABLE_CUDA": {"type": "BOOL", "value": "ON"},
+        "CMAKE_CUDA_ARCHITECTURES": {"type": "STRING", "value": "90"},
+        "CMAKE_INSTALL_PREFIX": "/scratch/s3j/install/vecgeom-${presetName}"
+      }
+    }
+  ]
+}
