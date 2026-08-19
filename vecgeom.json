@@ -43,13 +43,12 @@
       }
     },
     {
-      "name": "hudson-cuda",
-      "displayName": "Hudson CUDA",
+      "name": "cuda",
+      "displayName": "CUDA",
       "binaryDir": "/scratch/s3j/build/vecgeom-${presetName}",
       "generator": "Ninja",
       "cacheVariables": {
         "VECGEOM_ENABLE_CUDA": {"type": "BOOL", "value": "ON"},
-        "CMAKE_CUDA_ARCHITECTURES": {"type": "STRING", "value": "90"},
         "CMAKE_INSTALL_PREFIX": "/scratch/s3j/install/vecgeom-${presetName}"
       }
     }

@@ -4,7 +4,7 @@
   "configurePresets": [
     {
       "name": "cuda",
-      "displayName": "hudson cuda",
+      "displayName": "CUDA",
       "binaryDir": "/scratch/s3j/build/g4hepem-${presetName}",
       "generator": "Ninja",
       "environment": {
@@ -19,7 +19,6 @@
         "CMAKE_INSTALL_RPATH_USE_LINK_PATH": {"type": "BOOL", "value": "ON"},
         "CMAKE_INSTALL_RPATH": "/scratch/s3j/install/g4hepem-${presetName}/lib",
         "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
-        "CMAKE_CUDA_ARCHITECTURES": {"type": "STRING", "value": "90"},
         "CMAKE_INSTALL_PREFIX": "/scratch/s3j/install/g4hepem-${presetName}"
       }
     }
