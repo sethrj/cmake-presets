@@ -1,0 +1,34 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "name": ".base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": {"type": "STRING", "value": "20"},
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install",
+        "GEANT4_INSTALL_DATA": {"type": "BOOL", "value": "OFF"},
+        "GEANT4_USE_GDML": {"type": "BOOL", "value": "ON"},
+        "GEANT4_USE_SYSTEM_CLHEP": {"type": "BOOL", "value": "ON"},
+        "GEANT4_USE_SYSTEM_EXPAT": {"type": "BOOL", "value": "ON"},
+        "GEANT4_USE_SYSTEM_ZLIB": {"type": "BOOL", "value": "ON"}
+      }
+    },
+    {
+      "name": "executor",
+      "displayName": "Executor base",
+      "inherits": ".base",
+      "environment": {
+        "CMAKE_PREFIX_PATH": "/opt/spack/var/spack/environments/geant4-dev/.spack-env/view"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "GEANT4_INSTALL_DATADIR": "/opt/spack/var/spack/environments/geant4-dev/.spack-env/view/share/data"
+      }
+    }
+  ]
+}
