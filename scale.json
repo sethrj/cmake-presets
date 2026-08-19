@@ -1,0 +1,48 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "name": ".base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "BUILD_SHARED_LIBS":  {"type": "BOOL", "value": "ON"},
+        "CMAKE_CXX_STANDARD": {"type": "STRING", "value": "17"},
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install",
+        "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -DNDEBUG -g -gsplit-dwarf -fno-inline -fno-omit-frame-pointer",
+        "SCALE_BUILD_TESTS": {"type": "BOOL", "value": "ON"},
+        "SCALE_USE_CUDA": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_DAGMC": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_FLEX": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_Geant4": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_HIP": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_Java": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_MCNP": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_MPI": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_NCrystal": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_OpenMP": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_Qt": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_SWIG_Fortran": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_SWIG_Python": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_Silo": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_SuperLU": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_wasp": {"type": "BOOL", "value": "OFF"}
+      }
+    },
+    {
+      "name": "challenger",
+      "displayName": "Challenger base",
+      "inherits": ".base",
+      "environment": {
+        "CMAKE_PREFIX_PATH": "/opt/spack/var/spack/environments/scale-min/.spack-env/view"
+      },
+      "cacheVariables": {
+        "SCALEData_DIR": "/Users/s3j/Code/scale/cache/v1.14.0/SCALEData/share/SCALEData"
+      }
+    }
+  ]
+}
