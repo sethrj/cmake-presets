@@ -3,18 +3,17 @@
   "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
   "configurePresets": [
     {
+      "description": "default options to be used or overridden by other presets",
       "name": ".base",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build",
+      "binaryDir": "${sourceDir}/build-${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "BUILD_SHARED_LIBS":  {"type": "BOOL", "value": "ON"},
         "CMAKE_CXX_STANDARD": {"type": "STRING", "value": "17"},
         "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install",
-        "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -DNDEBUG -g -gsplit-dwarf -fno-inline -fno-omit-frame-pointer",
-        "SCALE_BUILD_TESTS": {"type": "BOOL", "value": "ON"},
+        "SCALE_BUILD_TESTS": {"type": "BOOL", "value": "OFF"},
         "SCALE_USE_CUDA": {"type": "BOOL", "value": "OFF"},
         "SCALE_USE_DAGMC": {"type": "BOOL", "value": "OFF"},
         "SCALE_USE_FLEX": {"type": "BOOL", "value": "OFF"},
@@ -34,15 +33,53 @@
       }
     },
     {
-      "name": "challenger",
-      "displayName": "Challenger base",
-      "inherits": ".base",
+      "description": "MIXIN: build with debug symbols",
+      "name": ".reldeb",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -DNDEBUG -g -fno-inline -fno-omit-frame-pointer",
+        "SCALE_DEBUG": {"type": "BOOL", "value": "OFF"}
+      }
+    },
+    {
+      "description": "MIXIN: enable only ORANGE components",
+      "name": ".orange",
+      "hidden": true,
+      "cacheVariables": {
+        "CELERITAS_BUILD_TESTS": {"type": "BOOL", "value": "ON"},
+        "SCALE_BUILD_TESTS": {"type": "BOOL", "value": "ON"},
+        "SCALE_BUILD_ORANGE_DOCS": {"type": "BOOL", "value": "ON"},
+        "SCALE_USE_Fortran": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_GNDS": {"type": "BOOL", "value": "OFF"},
+        "SCALE_USE_MPI": {"type": "BOOL", "value": "OFF"}
+      }
+    },
+    {
+      "description": "MIXIN: work laptop using Spack environment",
+      "name": ".challenger",
+      "hidden": true,
       "environment": {
+        "PATH": "/opt/spack/var/spack/environments/scale-min/.spack-env/view/bin:$penv{PATH}",
+        "PYTHONPATH": "/opt/spack/var/spack/environments/scale-min/.spack-env/view/lib/python3.14/site-packages",
         "CMAKE_PREFIX_PATH": "/opt/spack/var/spack/environments/scale-min/.spack-env/view"
       },
       "cacheVariables": {
+          "CMAKE_CXX_COMPILER_LAUNCHER": "/opt/homebrew/bin/ccache",
+          "CMAKE_CXX_FLAGS": "-fdiagnostics-color=always -ffile-prefix-map=${sourceDir}/=./",
         "SCALEData_DIR": "/Users/s3j/Code/scale/cache/v1.14.0/SCALEData/share/SCALEData"
       }
+    },
+    {
+      "name": "challenger",
+      "displayName": "Challenger: default SCALE development build",
+      "binaryDir": "${sourceDir}/build",
+      "inherits": [".challenger", ".base", ".reldeb"]
+    },
+    {
+      "name": "challenger-orange",
+      "displayName": "Challenger: build without fortran",
+      "inherits": [".orange", ".challenger", ".base", ".reldeb"]
     }
   ]
 }
