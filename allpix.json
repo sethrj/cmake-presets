@@ -1,0 +1,67 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {"major": 3, "minor": 21, "patch": 0},
+  "configurePresets": [
+    {
+      "description": "universal options for all projects",
+      "name": ".universal",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-${presetName}",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS":  {"type": "BOOL", "value": "ON"},
+        "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install"
+      }
+    },
+    {
+      "description": "default options to be used or overridden by other presets",
+      "name": ".base",
+      "hidden": true,
+      "inherits": ".universal",
+      "cacheVariables": {
+        "BUILD_PixESLWriter":   {"type": "BOOL", "value": "OFF"},
+        "BUILD_TOOLS":  {"type": "BOOL", "value": "ON"},
+        "BUILD_DOCS_ONLY":  {"type": "BOOL", "value": "OFF"},
+        "TEST_CORE":  {"type": "BOOL", "value": "ON"},
+        "TEST_MODULES":  {"type": "BOOL", "value": "ON"},
+        "TEST_PERFORMANCE":  {"type": "BOOL", "value": "OFF"},
+        "CCACHE_FOUND": {"type": "PATH", "value":"ignore"},
+        "CLANG_FORMAT": {"type": "PATH", "value":"ignore"},
+        "CLANG_TIDY":   {"type": "PATH", "value":"ignore"}
+      },                                                   
+      "environment": {
+        "SOURCE_DATE_EPOCH": "1788206723"
+    },
+    {
+      "description": "MIXIN: build with debug symbols",
+      "name": ".reldeb",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_FLAGS_RELWITHDEBINFO": "-O2 -DNDEBUG -g -fno-inline -fno-omit-frame-pointer"
+      }
+    },
+    {
+      "description": "MIXIN: work laptop using Spack environment",
+      "name": ".executor",
+      "hidden": true,
+      "environment": {
+        "PATH": "/opt/spack/var/spack/environments/allpix/.spack-env/view/bin:$penv{PATH}",
+        "PYTHONPATH": "/opt/spack/var/spack/environments/allpix/.spack-env/view/lib/python3.14/site-packages",
+        "CMAKE_PREFIX_PATH": "/opt/spack/var/spack/environments/allpix/.spack-env/view"
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fdiagnostics-color=always -ffile-prefix-map=${sourceDir}/=./",
+        "CMAKE_CXX_COMPILER_LAUNCHER": "/opt/homebrew/bin/ccache",
+        "ALLPIX_CXX_FLAGS": "-pedantic"
+      }
+    },
+    {
+      "name": "executor",
+      "displayName": "executor: default development build",
+      "binaryDir": "${sourceDir}/build",
+      "inherits": [".executor", ".base", ".reldeb"]
+    }
+  ]
+}
