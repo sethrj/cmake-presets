@@ -12,6 +12,7 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": {"type": "BOOL", "value": "ON"},
         "CMAKE_INSTALL_PREFIX": "${sourceDir}/install",
         "GEANT4_INSTALL_DATA": {"type": "BOOL", "value": "OFF"},
+        "GEANT4_INSTALL_PACKAGE_CACHE":  {"type": "BOOL", "value": "ON"},
         "GEANT4_USE_GDML": {"type": "BOOL", "value": "ON"},
         "GEANT4_USE_SYSTEM_CLHEP": {"type": "BOOL", "value": "ON"},
         "GEANT4_USE_SYSTEM_EXPAT": {"type": "BOOL", "value": "ON"},
